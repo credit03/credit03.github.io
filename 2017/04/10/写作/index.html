@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        标签｜Cre博客
+        写作教程｜Cre博客
         
     </title>
 
-    <link rel="canonical" href="http://credit03.github.io/nav1/">
+    <link rel="canonical" href="http://credit03.github.io/2017/04/10/写作/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
 " data-ishome = "false" >
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -138,147 +138,175 @@
 </script>
 
 <!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://localhost:4000/img/5.jpg">
+
+
 <style>
-    .intro-header .site-heading {
-        margin: 50px;
+     
+	 
+	 .post-container{
+	    padding-top:50px;
+        background-color: rgba(0, 0, 0, 0.09);
+	 }
+
+    
+    header.intro-header {
+        background-image: url('http://localhost:4000/img/5.jpg?imageView2/1/w/1400/h/400/interlace/1/q/90')
     }
+
+    
 </style>
 
-<!-- Page Header -->
 <header class="intro-header">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading text-center">
-                    <h1>标签</h1>
-                    <span class="subheading">在这里你可以根据标签，快速检索文章</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>写作教程</h1>
+                    
+                    <span class="meta">
+                         作者 CRE
+                        <span>
+                          日期 2017-04-10
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/nav1/#Java"
+                           title="Java">Java</a>
+                        
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            写作教程
+        </span>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- 标签云 -->
-            <div id='tag_cloud' class="tags">
+<!-- Post Content -->
+<article>
+    <div class="container"  >
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-10  col-sm-9 post-container">
+                <h3 id="创建一篇博客"><a href="#创建一篇博客" class="headerlink" title="创建一篇博客"></a>创建一篇博客</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">C:\Users\87495&gt;cd c:/cre</div><div class="line">c:\cre&gt;hexo new &quot;写作&quot;</div><div class="line">INFO  Created: c:\cre\source\_posts\写作.md</div></pre></td></tr></table></figure>
+<p>会生成一个文件与一个文件夹（当前md文件关联资源目录）<br><img src="./1.png" alt="image"></p>
+<p>文件夹是放置资源，例如图片等等</p>
+<h3 id="使用资源目录的文件"><a href="#使用资源目录的文件" class="headerlink" title="使用资源目录的文件"></a>使用资源目录的文件</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//例如,我的写作资源目录下有一张1.png图片,使用如下：</div><div class="line"></div><div class="line">图片使用方式： ![image](./1.png) 或![image](./v.gif)</div></pre></td></tr></table></figure>
+<p><img src="./v.gif" alt="image"></p>
+<p>end</p>
+
+                <hr>
+				
+				
+				
+				
+				<!-- 云跟贴完整模块代码(Web单独版） -->
+				
+				
+				
+					 <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+						<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+						<script>
+						var cloudTieConfig = {
+						  url: document.location.href, 
+						  sourceId: "",
+						  productKey: "config['gentie_username']",
+						  target: "cloud-tie-wrapper"
+						};
+						var yunManualLoad = true;
+						Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+						</script>
+				
+
+				
                 
-                <a href="#Go" title="Go" rel="1">Go</a>
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/04/07/使用默认/" data-toggle="tooltip" data-placement="top"
+                           title="Front-matter 使用教程">&larr; 上一章</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/04/10/在java中获取URL的域名或IP与端口/" data-toggle="tooltip" data-placement="top"
+                           title="在java中获取URL的域名或IP与端口">下一章 &rarr;</a>
+                    </li>
+                    
+                </ul>
+
                 
-                <a href="#Android" title="Android" rel="3">Android</a>
+
                 
-                <a href="#Java" title="Java" rel="2">Java</a>
-                
-                <a href="#ndk" title="ndk" rel="1">ndk</a>
-                
+
             </div>
 
-            <!-- 标签列表 -->
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Go">
-                    <span class="tag-text">Go</span>
-                </span>
-                
-                <div class="post-preview">
-                    <a href="/2017/04/07/使用默认/">
-                        <h2 class="post-title">
-                            Front-matter 使用教程
-                        </h2>
-                        
-                    </a>
+            <div class="hidden-xs col-sm-2 toc-col" >
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建一篇博客"><span class="toc-text">创建一篇博客</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用资源目录的文件"><span class="toc-text">使用资源目录的文件</span></a></li></ol>
                 </div>
-                <hr>
-                
             </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Android">
-                    <span class="tag-text">Android</span>
-                </span>
-                
-                <div class="post-preview">
-                    <a href="/2017/04/10/RxJava2-Retrofit2-MVP-lamdba仿微信朋友圈Demo/">
-                        <h2 class="post-title">
-                            RxJava2+Retrofit2+MVP+lamdba仿微信朋友圈Demo
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-                <div class="post-preview">
-                    <a href="/2017/04/10/ReclyerView双联动，仿饿了吗店铺详情页/">
-                        <h2 class="post-title">
-                            ReclyerView双联动，仿饿了吗店铺详情页
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-                <div class="post-preview">
-                    <a href="/2017/04/10/SharedPreferences-实现栈与队列/">
-                        <h2 class="post-title">
-                            SharedPreferences 实现栈与队列
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="Java">
-                    <span class="tag-text">Java</span>
-                </span>
-                
-                <div class="post-preview">
-                    <a href="/2017/04/10/写作/">
-                        <h2 class="post-title">
-                            写作教程
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-                <div class="post-preview">
-                    <a href="/2017/04/10/在java中获取URL的域名或IP与端口/">
-                        <h2 class="post-title">
-                            在java中获取URL的域名或IP与端口
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-            </div>
-            
-            <div class="one-tag-list">
-                <span class="fa fa-tag listing-seperator" id="ndk">
-                    <span class="tag-text">ndk</span>
-                </span>
-                
-                <div class="post-preview">
-                    <a href="/2017/04/10/Android-studio-Gradle使用NDK-示例Speex/">
-                        <h2 class="post-title">
-                            Android studio Gradle使用NDK 示例Speex
-                        </h2>
-                        
-                    </a>
-                </div>
-                <hr>
-                
-            </div>
-            
-
         </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-10 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">分类标签</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/nav1/#Java"
+                           title="Java">Java</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">个人链接</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://blog.csdn.net/u013217757">CSDNf博客</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
     </div>
-</div>
+</article>
+
+
+
+
+
+
+
+
 
 <!-- Footer -->
 <!-- Footer -->

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="这是一个使用hexo for github page的博客">
+    <meta name="keyword" content="credit cre android go">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Cre博客" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        RxJava2+Retrofit2+MVP+lamdba仿微信朋友圈Demo｜Cre博客
+        
+    </title>
+
+    <link rel="canonical" href="http://credit03.github.io/2017/04/10/RxJava2-Retrofit2-MVP-lamdba仿微信朋友圈Demo/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('null')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Cre博客     
+                </span>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">首页</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/nav1/">标签</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/nav2/">时间轴</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/nav3/">关于</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://localhost:4000/img/4.jpg">
+
+
+<style>
+     
+	 
+	 .post-container{
+	    padding-top:50px;
+        background-color: rgba(0, 0, 0, 0.09);
+	 }
+
+    
+    header.intro-header {
+        background-image: url('http://localhost:4000/img/4.jpg?imageView2/1/w/1400/h/400/interlace/1/q/90')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>RxJava2+Retrofit2+MVP+lamdba仿微信朋友圈Demo</h1>
+                    
+                    <span class="meta">
+                         作者 Gou yi
+                        <span>
+                          日期 2017-04-10
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/nav1/#Android"
+                           title="Android">Android</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            RxJava2+Retrofit2+MVP+lamdba仿微信朋友圈Demo
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container"  >
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-10  col-sm-9 post-container">
+                <h2 id="1-吹风湿篇"><a href="#1-吹风湿篇" class="headerlink" title="1.吹风湿篇"></a>1.吹风湿篇</h2><blockquote>
+<p>最近学Rxjava2，但工作上未能使用，想想做个Demo来记录下，总结学习的新知识，分别用到Rxjava2,Retrofit2,Okhttp3,Glide,MVP,java8的新特性Lamdba。<br> 确定想法以后，就开始写代码，但我又不想造轮子写界面，所以在github 看到一个仿朋友圈的demo，仿微信实现的朋友圈，模拟与后台交互实现了点赞、评论、删除等功能，RecyclerView可以根据键盘的显示或隐藏实现联动。 增加短视频拍摄功能（趣拍标准版SDK） 与后台交互采用mvp模式。</p>
+</blockquote>
+<h3 id="Github传送门-CircleDemo"><a href="#Github传送门-CircleDemo" class="headerlink" title="Github传送门 CircleDemo"></a>Github传送门 <a href="https://github.com/Naoki2015/CircleDemo" target="_blank" rel="external">CircleDemo</a></h3><p><img src="http://img.blog.csdn.net/20170315143728893?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzIxNzc1Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h4 id="找到界面，但问题出现了CircleDemo的数据是使用本地，但我要练手Retrofit2-Okhttp3必须要服务器呀，想想用什么写服务器呢，PHP，javaEE-beego-Node-js…一堆写服务器的方式在脑海中转-javaEE太庞大了，php-Node-js不会，好吧，只能选择Beego了，简单，容易（额，我不是在打广告）"><a href="#找到界面，但问题出现了CircleDemo的数据是使用本地，但我要练手Retrofit2-Okhttp3必须要服务器呀，想想用什么写服务器呢，PHP，javaEE-beego-Node-js…一堆写服务器的方式在脑海中转-javaEE太庞大了，php-Node-js不会，好吧，只能选择Beego了，简单，容易（额，我不是在打广告）" class="headerlink" title="找到界面，但问题出现了CircleDemo的数据是使用本地，但我要练手Retrofit2,Okhttp3必须要服务器呀，想想用什么写服务器呢，PHP，javaEE, beego,Node.js…一堆写服务器的方式在脑海中转;javaEE太庞大了，php,Node.js不会，好吧，只能选择Beego了，简单，容易（额，我不是在打广告）"></a>找到界面，但问题出现了CircleDemo的数据是使用本地，但我要练手Retrofit2,Okhttp3必须要服务器呀，想想用什么写服务器呢，PHP，javaEE, beego,Node.js…一堆写服务器的方式在脑海中转;javaEE太庞大了，php,Node.js不会，好吧，只能选择Beego了，简单，容易（额，我不是在打广告）</h4><h3 id="Beego-传送门-https-beego-me"><a href="#Beego-传送门-https-beego-me" class="headerlink" title="Beego 传送门  https://beego.me/"></a>Beego 传送门  <a href="https://beego.me/" target="_blank" rel="external">https://beego.me/</a></h3><h4 id="所以下载我编写的服务器的同志们，要麻烦配置下go语言开发环境，不懂得go语言没所谓，会配置运行起来用就行。"><a href="#所以下载我编写的服务器的同志们，要麻烦配置下go语言开发环境，不懂得go语言没所谓，会配置运行起来用就行。" class="headerlink" title="所以下载我编写的服务器的同志们，要麻烦配置下go语言开发环境，不懂得go语言没所谓，会配置运行起来用就行。"></a>所以下载我编写的服务器的同志们，要麻烦配置下go语言开发环境，不懂得go语言没所谓，会配置运行起来用就行。</h4><h2 id="技术篇"><a href="#技术篇" class="headerlink" title="技术篇"></a>技术篇</h2><h3 id="1-go语言开发环境配置"><a href="#1-go语言开发环境配置" class="headerlink" title="1.go语言开发环境配置"></a>1.go语言开发环境配置</h3><h4 id="1-下载链接-http-www-golangtc-com-download"><a href="#1-下载链接-http-www-golangtc-com-download" class="headerlink" title="(1)下载链接 http://www.golangtc.com/download"></a>(1)下载链接 <a href="http://www.golangtc.com/download" target="_blank" rel="external">http://www.golangtc.com/download</a></h4><p><img src="http://img.blog.csdn.net/20170315143713221?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzIxNzc1Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h4 id="2-下载后直接双击msi文件安装，默认安装在c-go"><a href="#2-下载后直接双击msi文件安装，默认安装在c-go" class="headerlink" title="(2)下载后直接双击msi文件安装，默认安装在c:\go"></a>(2)下载后直接双击msi文件安装，默认安装在c:\go</h4><h4 id="3-安装完成后默认会在环境变量-Path-后添加-Go-安装目录下的-bin-目录-C-Go-bin-，并添加环境变量-GOROOT，值为-Go-安装根目录-C-Go"><a href="#3-安装完成后默认会在环境变量-Path-后添加-Go-安装目录下的-bin-目录-C-Go-bin-，并添加环境变量-GOROOT，值为-Go-安装根目录-C-Go" class="headerlink" title="(3)安装完成后默认会在环境变量 Path 后添加 Go 安装目录下的 bin 目录 C:\Go\bin\，并添加环境变量 GOROOT，值为 Go 安装根目录 C:\Go\"></a>(3)安装完成后默认会在环境变量 Path 后添加 Go 安装目录下的 bin 目录 C:\Go\bin\，并添加环境变量 GOROOT，值为 Go 安装根目录 C:\Go\</h4><h4 id="4-验证是否安装成功，在运行中输入-cmd-打开命令行工具，在提示符下输入-go-出现下图就表示成功了"><a href="#4-验证是否安装成功，在运行中输入-cmd-打开命令行工具，在提示符下输入-go-出现下图就表示成功了" class="headerlink" title="(4).验证是否安装成功，在运行中输入 cmd 打开命令行工具，在提示符下输入 go,出现下图就表示成功了"></a>(4).验证是否安装成功，在运行中输入 cmd 打开命令行工具，在提示符下输入 go,出现下图就表示成功了</h4><p><img src="http://img.blog.csdn.net/20170315144012991?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzIxNzc1Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>###2.运行beego服务器</p>
+<h3 id="服务器代码Github下载-（包括服务器与依赖库代码）"><a href="#服务器代码Github下载-（包括服务器与依赖库代码）" class="headerlink" title="服务器代码Github下载 （包括服务器与依赖库代码）"></a>服务器代码Github下载 （包括服务器与依赖库代码）</h3><h4 id="https-github-com-credit03-RxJavaServer"><a href="#https-github-com-credit03-RxJavaServer" class="headerlink" title="https://github.com/credit03/RxJavaServer"></a><a href="https://github.com/credit03/RxJavaServer" target="_blank" rel="external">https://github.com/credit03/RxJavaServer</a></h4><h4 id="若依赖库不能使用，请使用下面csdn下载方式下载"><a href="#若依赖库不能使用，请使用下面csdn下载方式下载" class="headerlink" title="若依赖库不能使用，请使用下面csdn下载方式下载"></a>若依赖库不能使用，请使用下面csdn下载方式下载</h4><h4 id="由于文件过大，csdn限制60mb，所以服务器代码与依赖库分开上传。"><a href="#由于文件过大，csdn限制60mb，所以服务器代码与依赖库分开上传。" class="headerlink" title="由于文件过大，csdn限制60mb，所以服务器代码与依赖库分开上传。"></a>由于文件过大，csdn限制60mb，所以服务器代码与依赖库分开上传。</h4><h4 id="1-先下载依赖库，下载链接-http-download-csdn-net-detail-u013217757-9782025"><a href="#1-先下载依赖库，下载链接-http-download-csdn-net-detail-u013217757-9782025" class="headerlink" title="(1)先下载依赖库，下载链接 http://download.csdn.net/detail/u013217757/9782025"></a>(1)先下载依赖库，下载链接 <a href="http://download.csdn.net/detail/u013217757/9782025" target="_blank" rel="external">http://download.csdn.net/detail/u013217757/9782025</a></h4><h4 id="（2）下载（DevSuroce）依赖库成功，解压到go安装的根目录"><a href="#（2）下载（DevSuroce）依赖库成功，解压到go安装的根目录" class="headerlink" title="（2）下载（DevSuroce）依赖库成功，解压到go安装的根目录"></a>（2）下载（DevSuroce）依赖库成功，解压到go安装的根目录</h4><p><img src="http://img.blog.csdn.net/20170315145917017?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzIxNzc1Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h3 id="（3）服务器主要代码，下载链接"><a href="#（3）服务器主要代码，下载链接" class="headerlink" title="（3）服务器主要代码，下载链接"></a>（3）服务器主要代码，下载链接</h3><p><a href="http://download.csdn.net/detail/u013217757/9782038" target="_blank" rel="external">http://download.csdn.net/detail/u013217757/9782038</a></p>
+<p>###下载服务器主要代码后解压到一个没有中文的目录，我的目录如下<br><img src="http://img.blog.csdn.net/20170315150316241?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzIxNzc1Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>###（4）使用cmd ,cd 到src目录，例如我的：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">d:</div><div class="line">cd D:\RxJavaCode\Server\RxJavaServer\src</div></pre></td></tr></table></figure>
+<p><img src="http://img.blog.csdn.net/20170315150615955?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzIxNzc1Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>###(5) 然后 输入beego运行命令  bee run</p>
+<h3 id="就这样服务器就运行了，运行成功的样子如下："><a href="#就这样服务器就运行了，运行成功的样子如下：" class="headerlink" title="就这样服务器就运行了，运行成功的样子如下："></a>就这样服务器就运行了，运行成功的样子如下：</h3><p><img src="http://img.blog.csdn.net/20170315150912409?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzIxNzc1Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h3 id="测试-http-localhost-8080-login-mobile-13800138000-amp-pwd-123456"><a href="#测试-http-localhost-8080-login-mobile-13800138000-amp-pwd-123456" class="headerlink" title="测试 http://localhost:8080/login?mobile=13800138000&amp;pwd=123456"></a>测试 <a href="http://localhost:8080/login?mobile=13800138000&amp;pwd=123456" target="_blank" rel="external">http://localhost:8080/login?mobile=13800138000&amp;pwd=123456</a></h3><p><img src="http://img.blog.csdn.net/20170315153927494?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzIxNzc1Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h4 id="有同学注意到为啥不用配置数据库之类的东西呢…-答案是使用sqlite3数据库，没错就是它了，在beego配置使用sqlite3数据库，当然也可以使用mysql-看文档配置就行"><a href="#有同学注意到为啥不用配置数据库之类的东西呢…-答案是使用sqlite3数据库，没错就是它了，在beego配置使用sqlite3数据库，当然也可以使用mysql-看文档配置就行" class="headerlink" title="有同学注意到为啥不用配置数据库之类的东西呢….,答案是使用sqlite3数据库，没错就是它了，在beego配置使用sqlite3数据库，当然也可以使用mysql,看文档配置就行"></a>有同学注意到为啥不用配置数据库之类的东西呢….,答案是使用sqlite3数据库，没错就是它了，在beego配置使用sqlite3数据库，当然也可以使用mysql,看文档配置就行</h4><p><img src="http://img.blog.csdn.net/20170315151208988?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzIxNzc1Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>###好的，服务器小点到现在结束，不懂的留言。</p>
+<p>##3，APP技术篇</p>
+<p>###（1）下载app代码，下载链接(本来是想上传到Github但上传失败，捣蛋了一个小时无法解决，放弃了)</p>
+<p>##<a href="http://download.csdn.net/detail/u013217757/9782232" target="_blank" rel="external">http://download.csdn.net/detail/u013217757/9782232</a></p>
+<p>###(2) 目录结构<br><img src="http://img.blog.csdn.net/20170315161440705?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzIxNzc1Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>###(3) 使用android studio打开，修改服务器ip，运行安装就行，运行效果如下：<br><img src="http://img.blog.csdn.net/20170315161146632?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzIxNzc1Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20170315161931894?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzIxNzc1Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20170315162412462?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzIxNzc1Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p><img src="http://img.blog.csdn.net/20170315162449166?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzIxNzc1Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h4 id="运行时有的图片是无法加载，因为我在服务器中删除了6-jpg和16-jpg-若加载到这两张图片就是空白。解决方法，在服务器的static目录下的img目录-static-img-添加两张图片"><a href="#运行时有的图片是无法加载，因为我在服务器中删除了6-jpg和16-jpg-若加载到这两张图片就是空白。解决方法，在服务器的static目录下的img目录-static-img-添加两张图片" class="headerlink" title="运行时有的图片是无法加载，因为我在服务器中删除了6.jpg和16.jpg,若加载到这两张图片就是空白。解决方法，在服务器的static目录下的img目录(static/img/)添加两张图片"></a>运行时有的图片是无法加载，因为我在服务器中删除了6.jpg和16.jpg,若加载到这两张图片就是空白。解决方法，在服务器的static目录下的img目录(static/img/)添加两张图片</h4><p><img src="http://img.blog.csdn.net/20170315161735049?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzIxNzc1Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<h3 id="4-重构了CircleDemo中Aadpater与ViewHolder-修改了上下刷新界面，添加了发表图文，接收分享，修改视频录制功能，等功能。用到技术如下："><a href="#4-重构了CircleDemo中Aadpater与ViewHolder-修改了上下刷新界面，添加了发表图文，接收分享，修改视频录制功能，等功能。用到技术如下：" class="headerlink" title="(4)重构了CircleDemo中Aadpater与ViewHolder,修改了上下刷新界面，添加了发表图文，接收分享，修改视频录制功能，等功能。用到技术如下："></a>(4)重构了CircleDemo中Aadpater与ViewHolder,修改了上下刷新界面，添加了发表图文，接收分享，修改视频录制功能，等功能。用到技术如下：</h3><h4 id="使用mvp构架项目"><a href="#使用mvp构架项目" class="headerlink" title="使用mvp构架项目"></a>使用mvp构架项目</h4><h4 id="使用RxJava2-Retrofit2-Okhttp3实现网络访问"><a href="#使用RxJava2-Retrofit2-Okhttp3实现网络访问" class="headerlink" title="使用RxJava2+Retrofit2 +Okhttp3实现网络访问"></a>使用RxJava2+Retrofit2 +Okhttp3实现网络访问</h4><h4 id="使用轻量级缓存框架——ACache（ASimpleCache）"><a href="#使用轻量级缓存框架——ACache（ASimpleCache）" class="headerlink" title="使用轻量级缓存框架——ACache（ASimpleCache）"></a>使用轻量级缓存框架——ACache（ASimpleCache）</h4><h4 id="使用SwipeToLoadLayout作上下拉刷新界面"><a href="#使用SwipeToLoadLayout作上下拉刷新界面" class="headerlink" title="使用SwipeToLoadLayout作上下拉刷新界面"></a>使用SwipeToLoadLayout作上下拉刷新界面</h4><h4 id="使用java-8的lamdba特性创建单方法回调"><a href="#使用java-8的lamdba特性创建单方法回调" class="headerlink" title="使用java 8的lamdba特性创建单方法回调"></a>使用java 8的lamdba特性创建单方法回调</h4><h4 id="太哆嗦了，使用库就如下了…"><a href="#太哆嗦了，使用库就如下了…" class="headerlink" title="太哆嗦了，使用库就如下了…"></a>太哆嗦了，使用库就如下了…</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//Rxjava for android</div><div class="line">   compile &apos;io.reactivex.rxjava2:rxjava:2.0.5&apos;</div><div class="line">   compile &apos;io.reactivex.rxjava2:rxandroid:2.0.1&apos;</div><div class="line">   //  compile &apos;org.xutils:xutils:3.3.40&apos;</div><div class="line">   // compile &apos;com.squareup.picasso:picasso:2.5.2&apos;</div><div class="line">   //photoview</div><div class="line">   compile &apos;com.github.chrisbanes:PhotoView:1.3.1&apos;</div><div class="line">   //glide</div><div class="line">   compile &apos;com.github.bumptech.glide:glide:3.7.0&apos;</div><div class="line"></div><div class="line">   //如果你的网络请求底层使用了Okhttp的话，那么可以指定这个让Glide网络层使用Okhttp</div><div class="line">   compile(&apos;com.github.bumptech.glide:okhttp3-integration:1.4.0&apos;) &#123;</div><div class="line">       exclude group: &apos;glide-parent&apos;</div><div class="line">   &#125;</div><div class="line">   //retrofit</div><div class="line">   compile &apos;com.squareup.retrofit2:retrofit:2.1.0&apos;</div><div class="line">   //Gson converter</div><div class="line">   compile &apos;com.squareup.retrofit2:converter-gson:2.1.0&apos;</div><div class="line">   //RxJava2 retrofit Adapter</div><div class="line">   compile &apos;com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0&apos;</div><div class="line">   //okhttp3</div><div class="line">   compile &apos;com.squareup.okhttp3:okhttp:3.4.1&apos;</div><div class="line">   //okhttp3日志拦截器</div><div class="line">   compile &apos;com.squareup.okhttp3:logging-interceptor:3.4.1&apos;</div><div class="line">   //自动注解 butterknife</div><div class="line">   compile &apos;com.jakewharton:butterknife:5.1.1&apos;</div><div class="line">   //上下拉刷新 SwipeToLoadLayout</div><div class="line">   compile &apos;com.github.Aspsine:SwipeToLoadLayout:1.0.4&apos;</div><div class="line"></div><div class="line">   compile &apos;com.android.support:design:25.1.0&apos;</div><div class="line">   //加载进度条</div><div class="line">   compile &apos;com.mikhaellopez:circularprogressbar:1.1.1&apos;</div><div class="line">   //  compile &apos;com.github.waynell:VideoListPlayer:1.4&apos;</div><div class="line">   //视频录制， 利用FFmpeg视频录制与压缩处理</div><div class="line">   compile &apos;com.mabeijianxi:small-video-record:1.0.8&apos;</div><div class="line">   //图片选择器</div><div class="line">   compile(project(&apos;:PhotoPicker&apos;)) &#123;</div><div class="line">       // exclude group: &apos;com.android.support&apos;, module: &apos;recyclerview&apos;</div><div class="line">       exclude group: &apos;com.github.bumptech.glide&apos;,</div><div class="line">               module: &apos;glide&apos;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h3 id="lamdba-简单总结-本来我也不会lamdba-语句的，但学Rxjava时，时不时就来一段lamdba语句，烦了，学RxJava学了一天，花了一小时去学lamdba，看上去好高大上的样子，虽然简洁，便不方便阅读。下面是我的简单总结，对我目前来说够用状态。"><a href="#lamdba-简单总结-本来我也不会lamdba-语句的，但学Rxjava时，时不时就来一段lamdba语句，烦了，学RxJava学了一天，花了一小时去学lamdba，看上去好高大上的样子，虽然简洁，便不方便阅读。下面是我的简单总结，对我目前来说够用状态。" class="headerlink" title="lamdba 简单总结,本来我也不会lamdba 语句的，但学Rxjava时，时不时就来一段lamdba语句，烦了，学RxJava学了一天，花了一小时去学lamdba，看上去好高大上的样子，虽然简洁，便不方便阅读。下面是我的简单总结，对我目前来说够用状态。"></a>lamdba 简单总结,本来我也不会lamdba 语句的，但学Rxjava时，时不时就来一段lamdba语句，烦了，学RxJava学了一天，花了一小时去学lamdba，看上去好高大上的样子，虽然简洁，便不方便阅读。下面是我的简单总结，对我目前来说够用状态。</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/**</div><div class="line">        * JAVA8 的Lambda表达式 总结：</div><div class="line">        * 1.只用一个回调方法的接口可以使用 Lambda表达式</div><div class="line">        * -----------------------------</div><div class="line">        * 2.没有带参和没有返回值的方法:</div><div class="line">        *   void onclick()&#123;</div><div class="line">        *   &#125;  - Lambda表达式-&gt; ()-&gt;&#123;&#125;</div><div class="line">        *  ------------------------------</div><div class="line">        * 3. 单个带参和没有返回值的方法:</div><div class="line">        * void onclick(View v)&#123;</div><div class="line">        *  Log.e(v.getid());</div><div class="line">        *   &#125;</div><div class="line">        *   Lambda表达式:</div><div class="line">        *   3.1,指定参数类型</div><div class="line">        *   (View v)-&gt;&#123; Log.e(v.getid());&#125;</div><div class="line">        *   3.2,直接给Lambda推导</div><div class="line">        *      v-&gt;&#123; Log.e(v.getid());&#125;</div><div class="line">        *   3.3更精简的方法</div><div class="line">        *    v-&gt;Log.e(v.getid());</div><div class="line">        *</div><div class="line">        *    以上的功能都一致的</div><div class="line">        *----------------------------------</div><div class="line">        * 4.多个带参和没有返回值的方法:</div><div class="line">        * void onclick(View v，int position)&#123;</div><div class="line">        *  Log.e(v.getid()+&quot; pos:&quot;+position);</div><div class="line">        *   &#125;</div><div class="line">        * Lambda表达式:</div><div class="line">        *  和3的使用方式一样：</div><div class="line">        *  (View v,int pos)-&gt;&#123;Log.e(v.getid()+&quot; pos:&quot;+pos)&#125;;</div><div class="line">        *  或（v,pos）-&gt;Log.e(v.getid()+&quot; pos:&quot;+pos);</div><div class="line">        *</div><div class="line">        *  5.有返回值的方法:</div><div class="line">        *   public int add(int a,int b)&#123;</div><div class="line">        *    return a+b;</div><div class="line">        *   &#125;</div><div class="line">        *   注意了：有返回值的要加&#123;&#125;，不能忽略&#123;&#125;</div><div class="line">        *   (a,b)-&gt;&#123;return a+b;&#125;</div><div class="line">        *</div><div class="line">        */</div><div class="line">               TestLba t1= new TestLba() &#123;</div><div class="line">           @Override</div><div class="line">           public void onclick(int a, int b) &#123;</div><div class="line">               Log.e(TAG, &quot;使用JAVA8 的Lambda表达式教程onCreate:&gt;&gt;&gt;&gt;&gt;&gt;&gt; &quot; + (a + b));</div><div class="line">           &#125;</div><div class="line">       &#125;;</div><div class="line"></div><div class="line">       TestLba t2= (a, b) -&gt;</div><div class="line">               Log.e(TAG, &quot;使用JAVA8 的Lambda表达式教程onCreate:&gt;&gt;&gt;&gt;&gt;&gt;&gt; &quot; + (a + b));</div><div class="line"></div><div class="line"></div><div class="line">       t1.onclick(1, 2);</div><div class="line">       t2.onclick(100, 200);</div></pre></td></tr></table></figure>
+<h3 id="在Android-studio-使用-lamdba-配置-配置下面两项就可以使用-lamdba语句了"><a href="#在Android-studio-使用-lamdba-配置-配置下面两项就可以使用-lamdba语句了" class="headerlink" title="在Android studio 使用 lamdba 配置,配置下面两项就可以使用 lamdba语句了"></a>在Android studio 使用 lamdba 配置,配置下面两项就可以使用 lamdba语句了</h3><h4 id="1-在总项目的build-gradle-不是app的build-gradle-配置下"><a href="#1-在总项目的build-gradle-不是app的build-gradle-配置下" class="headerlink" title="1.在总项目的build.gradle(不是app的build.gradle)配置下"></a>1.在总项目的build.gradle(不是app的build.gradle)配置下</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">dependencies &#123;</div><div class="line">       classpath &apos;com.android.tools.build:gradle:2.3.0&apos;</div><div class="line">       //配置支持lamdba </div><div class="line">       classpath &apos;me.tatarka:gradle-retrolambda:3.2.5&apos;</div><div class="line"></div><div class="line">       // NOTE: Do not place your application dependencies here; they belong</div><div class="line">       // in the individual module build.gradle files</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h4 id="2-在app的build-gradle配置下"><a href="#2-在app的build-gradle配置下" class="headerlink" title="2.在app的build.gradle配置下"></a>2.在app的build.gradle配置下</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">apply plugin: &apos;com.android.application&apos;</div><div class="line">apply plugin: &apos;me.tatarka.retrolambda&apos;  // java8 语法支持</div></pre></td></tr></table></figure>
+<h3 id="Rxjava2-没啥好总结，哈哈，不会Rxjava2-的同学们，android使用Rxjava-配置下面两个，教程传送门如下："><a href="#Rxjava2-没啥好总结，哈哈，不会Rxjava2-的同学们，android使用Rxjava-配置下面两个，教程传送门如下：" class="headerlink" title="Rxjava2 没啥好总结，哈哈，不会Rxjava2 的同学们，android使用Rxjava 配置下面两个，教程传送门如下："></a>Rxjava2 没啥好总结，哈哈，不会Rxjava2 的同学们，android使用Rxjava 配置下面两个，教程传送门如下：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">compile &apos;io.reactivex.rxjava2:rxjava:2.0.5&apos;</div><div class="line">compile &apos;io.reactivex.rxjava2:rxandroid:2.0.1&apos;</div></pre></td></tr></table></figure>
+<p>###<a href="http://www.jianshu.com/p/464fa025229e" target="_blank" rel="external"> 给初学者的RxJava2.0教程(一)</a></p>
+<p>###<a href="http://gank.io/post/560e15be2dca930e00da1083" target="_blank" rel="external"> 给 Android 开发者的 RxJava 详解</a></p>
+<p>###<a href="http://www.jianshu.com/p/9a41aaa1f4c7" target="_blank" rel="external">关于RxJava2.0你不知道的事</a></p>
+<p>###<a href="https://github.com/amitshekhariitbhu/RxJava2-Android-Samples" target="_blank" rel="external">RxJava2.0官方Demo</a></p>
+<p>###<a href="https://mcxiaoke.gitbooks.io/rxdocs/content/" target="_blank" rel="external">ReactiveX/RxJava文档中文版</a></p>
+<h4 id="楼主就看“给初学者的RxJava2-0教程”与“ReactiveX-RxJava文档中文版”学会Rxjava2的。"><a href="#楼主就看“给初学者的RxJava2-0教程”与“ReactiveX-RxJava文档中文版”学会Rxjava2的。" class="headerlink" title="楼主就看“给初学者的RxJava2.0教程”与“ReactiveX/RxJava文档中文版”学会Rxjava2的。"></a>楼主就看“给初学者的RxJava2.0教程”与“ReactiveX/RxJava文档中文版”学会Rxjava2的。</h4><h3 id="Retrofit2-总结，retrofit非常适合于restful-url格式的请求，更多使用注解的方式提供功能"><a href="#Retrofit2-总结，retrofit非常适合于restful-url格式的请求，更多使用注解的方式提供功能" class="headerlink" title="Retrofit2 总结，retrofit非常适合于restful url格式的请求，更多使用注解的方式提供功能"></a>Retrofit2 总结，retrofit非常适合于restful url格式的请求，更多使用注解的方式提供功能</h3><h4 id="与okhttp3搭配是绝配，因为retrofit的底层使用okhttp"><a href="#与okhttp3搭配是绝配，因为retrofit的底层使用okhttp" class="headerlink" title="与okhttp3搭配是绝配，因为retrofit的底层使用okhttp"></a>与okhttp3搭配是绝配，因为retrofit的底层使用okhttp</h4><h4 id="支持与Rxjava配置使用"><a href="#支持与Rxjava配置使用" class="headerlink" title="支持与Rxjava配置使用"></a>支持与Rxjava配置使用</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//retrofit</div><div class="line">  compile &apos;com.squareup.retrofit2:retrofit:2.1.0&apos;</div><div class="line">  //Gson converter</div><div class="line">  compile &apos;com.squareup.retrofit2:converter-gson:2.1.0&apos;</div><div class="line">  //RxJava2 retrofit Adapter</div><div class="line">  compile &apos;com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0&apos;</div><div class="line">  //okhttp3</div><div class="line">  compile &apos;com.squareup.okhttp3:okhttp:3.4.1&apos;</div><div class="line">  //okhttp3日志拦截器</div><div class="line">  compile &apos;com.squareup.okhttp3:logging-interceptor:3.4.1&apos;</div></pre></td></tr></table></figure>
+<h4 id="在当前项目中问题点就是，服务器要cookie授权才可以获取数据，retrofit一直没有提交，不知道是我代码错误，还什么问题，目前解决方法，Okhttp3添加拦截器-在响应时，获取cookie持久化到本地-在请求时，添加cookie到请求头"><a href="#在当前项目中问题点就是，服务器要cookie授权才可以获取数据，retrofit一直没有提交，不知道是我代码错误，还什么问题，目前解决方法，Okhttp3添加拦截器-在响应时，获取cookie持久化到本地-在请求时，添加cookie到请求头" class="headerlink" title="在当前项目中问题点就是，服务器要cookie授权才可以获取数据，retrofit一直没有提交，不知道是我代码错误，还什么问题，目前解决方法，Okhttp3添加拦截器,在响应时，获取cookie持久化到本地;在请求时，添加cookie到请求头"></a>在当前项目中问题点就是，服务器要cookie授权才可以获取数据，retrofit一直没有提交，不知道是我代码错误，还什么问题，目前解决方法，Okhttp3添加拦截器,在响应时，获取cookie持久化到本地;在请求时，添加cookie到请求头</h4><p><img src="http://img.blog.csdn.net/20170315172101806?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzIxNzc1Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package com.guoyi.circle.request;</div><div class="line"></div><div class="line">import android.content.Context;</div><div class="line">import android.content.SharedPreferences;</div><div class="line">import android.util.Log;</div><div class="line"></div><div class="line">import java.io.IOException;</div><div class="line">import java.util.List;</div><div class="line"></div><div class="line">import io.reactivex.Observable;</div><div class="line">import io.reactivex.functions.Function;</div><div class="line">import okhttp3.Interceptor;</div><div class="line">import okhttp3.Response;</div><div class="line"></div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by Credit on 2017/3/14.</div><div class="line"> * 响应时,获取cookie拦截器</div><div class="line"> */</div><div class="line"></div><div class="line">public class GetOkHttpCookieInterceptor implements Interceptor &#123;</div><div class="line"></div><div class="line">    private static final String TAG = &quot;GetOkHttpCookie&quot;;</div><div class="line">    private Context context;</div><div class="line"></div><div class="line">    public GetOkHttpCookieInterceptor(Context context) &#123;</div><div class="line">        super();</div><div class="line">        this.context = context;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public Response intercept(Chain chain) throws IOException &#123;</div><div class="line">        Response originalResponse = chain.proceed(chain.request());</div><div class="line">        //这里获取请求返回的cookie</div><div class="line">        if (!originalResponse.headers(&quot;Set-Cookie&quot;).isEmpty()) &#123;</div><div class="line">            final StringBuffer cookieBuffer = new StringBuffer();</div><div class="line">            //最近在学习RxJava,这里用了RxJava的相关API大家可以忽略,用自己逻辑实现即可.大家可以用别的方法保存cookie数据</div><div class="line"></div><div class="line">            List&lt;String&gt; headers = originalResponse.headers(&quot;Set-Cookie&quot;);</div><div class="line">            SharedPreferences sharedPreferences = context.getSharedPreferences(&quot;cookie&quot;, Context.MODE_PRIVATE);</div><div class="line">            SharedPreferences.Editor editor = sharedPreferences.edit();</div><div class="line">            Observable.fromIterable(headers)</div><div class="line">                    .map(new Function&lt;String, String&gt;() &#123;</div><div class="line">                        @Override</div><div class="line">                        public String apply(String s) throws Exception &#123;</div><div class="line"></div><div class="line">                            String[] cookieArray = s.split(&quot;;&quot;);</div><div class="line">                            return cookieArray[0];</div><div class="line">                        &#125;</div><div class="line">                    &#125;)</div><div class="line">                    .subscribe(cookie -&gt; &#123;</div><div class="line">                        Log.e(TAG, &quot; 保存 cookie ---intercept: &quot; + cookie);</div><div class="line">                        String[] split = cookie.split(&quot;=&quot;);</div><div class="line">                        editor.putString(split[0], cookie + &quot;;&quot;);</div><div class="line">                        // cookieBuffer.append(cookie).append(&quot;;&quot;);</div><div class="line">                    &#125;);</div><div class="line">            editor.commit();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        return originalResponse;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package com.guoyi.circle.request;</div><div class="line"></div><div class="line">import android.content.Context;</div><div class="line">import android.content.SharedPreferences;</div><div class="line"></div><div class="line">import java.io.IOException;</div><div class="line"></div><div class="line">import io.reactivex.Observable;</div><div class="line">import okhttp3.Interceptor;</div><div class="line">import okhttp3.Request;</div><div class="line">import okhttp3.Response;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by Credit on 2017/3/14.</div><div class="line"> * 请求时，添加cookie拦截器</div><div class="line"> */</div><div class="line"></div><div class="line">public class AddOkHttpCookieIntercept implements Interceptor &#123;</div><div class="line">    private Context context;</div><div class="line"></div><div class="line">    public AddOkHttpCookieIntercept(Context context) &#123;</div><div class="line">        super();</div><div class="line">        this.context = context;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public Response intercept(Chain chain) throws IOException &#123;</div><div class="line"></div><div class="line">        final Request.Builder builder = chain.request().newBuilder();</div><div class="line">        SharedPreferences sharedPreferences = context.getSharedPreferences(&quot;cookie&quot;, Context.MODE_PRIVATE);</div><div class="line">//最近在学习RxJava,这里用了RxJava的相关API大家可以忽略,用自己逻辑实现即可</div><div class="line"></div><div class="line">        /**</div><div class="line">         *  beegosessionID  --beego默认返回的seession key</div><div class="line">         *</div><div class="line">         *this.Ctx.SetCookie(&quot;mobile&quot;, u.Mobile, maxTime, &quot;/&quot;)</div><div class="line">         this.Ctx.SetCookie(&quot;pwd&quot;, u.Pwd, maxTime, &quot;/&quot;)</div><div class="line">         服务器对应的cookie</div><div class="line">         */</div><div class="line"></div><div class="line">        String beegosessionID = sharedPreferences.getString(&quot;beegosessionID&quot;, &quot;&quot;);</div><div class="line">        String mobile = sharedPreferences.getString(&quot;mobile&quot;, &quot;&quot;);</div><div class="line">        String pwd = sharedPreferences.getString(&quot;pwd&quot;, &quot;&quot;);</div><div class="line"></div><div class="line">        Observable.just(beegosessionID, mobile, pwd)</div><div class="line">                .subscribe(cookie -&gt; &#123;</div><div class="line">                    //添加cookie</div><div class="line">                    builder.addHeader(&quot;Cookie&quot;, cookie);</div><div class="line">                &#125;);</div><div class="line">        return chain.proceed(builder.build());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Retrofit2-教程"><a href="#Retrofit2-教程" class="headerlink" title="Retrofit2 教程"></a>Retrofit2 教程</h2><h3 id="你真的会用Retrofit2吗-Retrofit2完全教程"><a href="#你真的会用Retrofit2吗-Retrofit2完全教程" class="headerlink" title="你真的会用Retrofit2吗?Retrofit2完全教程"></a><a href="http://www.jianshu.com/p/308f3c54abdd" target="_blank" rel="external">你真的会用Retrofit2吗?Retrofit2完全教程</a></h3><h3 id="Retrofit2-完全解析-探索与okhttp之间的关系"><a href="#Retrofit2-完全解析-探索与okhttp之间的关系" class="headerlink" title="Retrofit2 完全解析 探索与okhttp之间的关系"></a><a href="http://blog.csdn.net/lmj623565791/article/details/51304204" target="_blank" rel="external">Retrofit2 完全解析 探索与okhttp之间的关系</a></h3><h3 id="Retrofit2-官方Github主页"><a href="#Retrofit2-官方Github主页" class="headerlink" title="Retrofit2 官方Github主页"></a><a href="https://github.com/square/retrofit" target="_blank" rel="external">Retrofit2 官方Github主页</a></h3><h3 id="Retrofit项目官方文档"><a href="#Retrofit项目官方文档" class="headerlink" title="Retrofit项目官方文档"></a><a href="http://square.github.io/retrofit/" target="_blank" rel="external">Retrofit项目官方文档</a></h3><p>##整个项目总结</p>
+<h4 id="1-上传图片压缩，当在wifi情况下单张图片最大256kb-在手机网络情况下最大128kb。"><a href="#1-上传图片压缩，当在wifi情况下单张图片最大256kb-在手机网络情况下最大128kb。" class="headerlink" title="1.上传图片压缩，当在wifi情况下单张图片最大256kb,在手机网络情况下最大128kb。"></a>1.上传图片压缩，当在wifi情况下单张图片最大256kb,在手机网络情况下最大128kb。</h4><h4 id="2-使用自定义GlideModule-通过Glide加载视频文件，缓存原理和图片缓存一样。"><a href="#2-使用自定义GlideModule-通过Glide加载视频文件，缓存原理和图片缓存一样。" class="headerlink" title="2.使用自定义GlideModule,通过Glide加载视频文件，缓存原理和图片缓存一样。"></a>2.使用自定义GlideModule,通过Glide加载视频文件，缓存原理和图片缓存一样。</h4><h4 id="3-学会使用mvp模式。"><a href="#3-学会使用mvp模式。" class="headerlink" title="3.学会使用mvp模式。"></a>3.学会使用mvp模式。</h4><h4 id="4-加深Rxjava2与Retrofit2使用方式-。"><a href="#4-加深Rxjava2与Retrofit2使用方式-。" class="headerlink" title="4.加深Rxjava2与Retrofit2使用方式 。"></a>4.加深Rxjava2与Retrofit2使用方式 。</h4><h4 id="5-半年没有写过go语言了，复习了go与beego框架的使用。"><a href="#5-半年没有写过go语言了，复习了go与beego框架的使用。" class="headerlink" title="5.半年没有写过go语言了，复习了go与beego框架的使用。"></a>5.半年没有写过go语言了，复习了go与beego框架的使用。</h4><h4 id="6-以前没有接触过setMovementMethod，学到了使用的作用，添加一个动作（滑动，点击等等）改变View的状态，例如点击改变背景，功能和selector差不多，学习链接：http-blog-csdn-net-lincyang-article-details-7259322"><a href="#6-以前没有接触过setMovementMethod，学到了使用的作用，添加一个动作（滑动，点击等等）改变View的状态，例如点击改变背景，功能和selector差不多，学习链接：http-blog-csdn-net-lincyang-article-details-7259322" class="headerlink" title="6.以前没有接触过setMovementMethod，学到了使用的作用，添加一个动作（滑动，点击等等）改变View的状态，例如点击改变背景，功能和selector差不多，学习链接：http://blog.csdn.net/lincyang/article/details/7259322"></a>6.以前没有接触过setMovementMethod，学到了使用的作用，添加一个动作（滑动，点击等等）改变View的状态，例如点击改变背景，功能和selector差不多，学习链接：<a href="http://blog.csdn.net/lincyang/article/details/7259322" target="_blank" rel="external">http://blog.csdn.net/lincyang/article/details/7259322</a></h4><p>  为TextView设置链接：、<br>         当文字中出现URL、E-mail、电话号码等的时候，我们为TextView设置链接。总结起来，一共有4种方法来为TextView实现链接。我们一一举例介绍；</p>
+<pre><code>1. 在xml里添加android:autoLink属性。
+android:autoLink ：的可选值：none/web/email/phone/map/all，分别代表将当前文本设置为：
+普通文本/URL/email/电话号码/map/自动识别，文本显示为可点击的链接。其中：设置为all时，系统会自动根据你的文本格式识别文本类型，如：http为web，tel为电话等；当然，以上内容也可以在Java代码中完成，用法为tv.setAutoLinkMask(Linkify.ALL)。
+
+2. 将显示内容写到资源文件，一般为String.xml中，并且用&lt;a&gt;标签来声明链接，然后激活这个链接，激活链接需要在Java代码中使用setMovementMethod()方法设置TextView为可点击。
+
+3. 用Html类的fromHtml()方法格式化要放到TextView里的文字。然后激活这个链接，激活链接需要在Java代码中使用setMovementMethod()方法设置TextView为可点击。
+
+4. 用Spannable或实现它的类，如SpannableString。与其他方法不同的是，Spannable对象可以为个别字符设置链接（当然也可以为个别字符设置颜色、字体等，实现某些字符高亮显示的效果等）。这个方法同样需要在Java代码中使用setMovementMethod()方法设置TextView为可点击。
+</code></pre><p><strong>TextView中设置多种字体大小</strong><br>         这是项目中经常遇到的，比如UI是这样的：<br><strong>Android实战技巧</strong>之文本与布局<br>像这样的两种字体，要如何处理呢？需要用到android.text命名空间下的一些与spannable相关的类和接口。例子如：<br>//[java] view plain copy 在CODE上查看代码片派生到我的代码片<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line"></div><div class="line">String text = &quot;Android实战技巧之文本与布局&quot;;  </div><div class="line">int start = text.indexOf(&apos;之&apos;);  </div><div class="line">int end = text.length();  </div><div class="line">Spannable textSpan = new Spannable(text);  </div><div class="line">	textSpan.setSpan(new AbsoluteSizeSpan(20),0,start,Spannable.SPAN_INCLUSIVE_INCLUSIVE);  </div><div class="line">	textSpan.setSpan(new AbsoluteSizeSpan(12),start,end,Spannable.SPAN_INCLUSIVE_INCLUSIVE);</div></pre></td></tr></table></figure></p>
+
+                <hr>
+				
+				
+				
+				
+				<!-- 云跟贴完整模块代码(Web单独版） -->
+				
+				
+				
+					 <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+						<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+						<script>
+						var cloudTieConfig = {
+						  url: document.location.href, 
+						  sourceId: "",
+						  productKey: "config['gentie_username']",
+						  target: "cloud-tie-wrapper"
+						};
+						var yunManualLoad = true;
+						Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+						</script>
+				
+
+				
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/04/10/在java中获取URL的域名或IP与端口/" data-toggle="tooltip" data-placement="top"
+                           title="在java中获取URL的域名或IP与端口">&larr; 上一章</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/04/10/Android-studio-Gradle使用NDK-示例Speex/" data-toggle="tooltip" data-placement="top"
+                           title="Android studio Gradle使用NDK 示例Speex">下一章 &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-2 toc-col" >
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-吹风湿篇"><span class="toc-text">1.吹风湿篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Github传送门-CircleDemo"><span class="toc-text">Github传送门 CircleDemo</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#找到界面，但问题出现了CircleDemo的数据是使用本地，但我要练手Retrofit2-Okhttp3必须要服务器呀，想想用什么写服务器呢，PHP，javaEE-beego-Node-js…一堆写服务器的方式在脑海中转-javaEE太庞大了，php-Node-js不会，好吧，只能选择Beego了，简单，容易（额，我不是在打广告）"><span class="toc-text">找到界面，但问题出现了CircleDemo的数据是使用本地，但我要练手Retrofit2,Okhttp3必须要服务器呀，想想用什么写服务器呢，PHP，javaEE, beego,Node.js…一堆写服务器的方式在脑海中转;javaEE太庞大了，php,Node.js不会，好吧，只能选择Beego了，简单，容易（额，我不是在打广告）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Beego-传送门-https-beego-me"><span class="toc-text">Beego 传送门  https://beego.me/</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#所以下载我编写的服务器的同志们，要麻烦配置下go语言开发环境，不懂得go语言没所谓，会配置运行起来用就行。"><span class="toc-text">所以下载我编写的服务器的同志们，要麻烦配置下go语言开发环境，不懂得go语言没所谓，会配置运行起来用就行。</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#技术篇"><span class="toc-text">技术篇</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-go语言开发环境配置"><span class="toc-text">1.go语言开发环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-下载链接-http-www-golangtc-com-download"><span class="toc-text">(1)下载链接 http://www.golangtc.com/download</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-下载后直接双击msi文件安装，默认安装在c-go"><span class="toc-text">(2)下载后直接双击msi文件安装，默认安装在c:\go</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-安装完成后默认会在环境变量-Path-后添加-Go-安装目录下的-bin-目录-C-Go-bin-，并添加环境变量-GOROOT，值为-Go-安装根目录-C-Go"><span class="toc-text">(3)安装完成后默认会在环境变量 Path 后添加 Go 安装目录下的 bin 目录 C:\Go\bin\，并添加环境变量 GOROOT，值为 Go 安装根目录 C:\Go\</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-验证是否安装成功，在运行中输入-cmd-打开命令行工具，在提示符下输入-go-出现下图就表示成功了"><span class="toc-text">(4).验证是否安装成功，在运行中输入 cmd 打开命令行工具，在提示符下输入 go,出现下图就表示成功了</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#服务器代码Github下载-（包括服务器与依赖库代码）"><span class="toc-text">服务器代码Github下载 （包括服务器与依赖库代码）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#https-github-com-credit03-RxJavaServer"><span class="toc-text">https://github.com/credit03/RxJavaServer</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#若依赖库不能使用，请使用下面csdn下载方式下载"><span class="toc-text">若依赖库不能使用，请使用下面csdn下载方式下载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#由于文件过大，csdn限制60mb，所以服务器代码与依赖库分开上传。"><span class="toc-text">由于文件过大，csdn限制60mb，所以服务器代码与依赖库分开上传。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-先下载依赖库，下载链接-http-download-csdn-net-detail-u013217757-9782025"><span class="toc-text">(1)先下载依赖库，下载链接 http://download.csdn.net/detail/u013217757/9782025</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）下载（DevSuroce）依赖库成功，解压到go安装的根目录"><span class="toc-text">（2）下载（DevSuroce）依赖库成功，解压到go安装的根目录</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）服务器主要代码，下载链接"><span class="toc-text">（3）服务器主要代码，下载链接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#就这样服务器就运行了，运行成功的样子如下："><span class="toc-text">就这样服务器就运行了，运行成功的样子如下：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试-http-localhost-8080-login-mobile-13800138000-amp-pwd-123456"><span class="toc-text">测试 http://localhost:8080/login?mobile=13800138000&pwd=123456</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#有同学注意到为啥不用配置数据库之类的东西呢…-答案是使用sqlite3数据库，没错就是它了，在beego配置使用sqlite3数据库，当然也可以使用mysql-看文档配置就行"><span class="toc-text">有同学注意到为啥不用配置数据库之类的东西呢….,答案是使用sqlite3数据库，没错就是它了，在beego配置使用sqlite3数据库，当然也可以使用mysql,看文档配置就行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#运行时有的图片是无法加载，因为我在服务器中删除了6-jpg和16-jpg-若加载到这两张图片就是空白。解决方法，在服务器的static目录下的img目录-static-img-添加两张图片"><span class="toc-text">运行时有的图片是无法加载，因为我在服务器中删除了6.jpg和16.jpg,若加载到这两张图片就是空白。解决方法，在服务器的static目录下的img目录(static/img/)添加两张图片</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-重构了CircleDemo中Aadpater与ViewHolder-修改了上下刷新界面，添加了发表图文，接收分享，修改视频录制功能，等功能。用到技术如下："><span class="toc-text">(4)重构了CircleDemo中Aadpater与ViewHolder,修改了上下刷新界面，添加了发表图文，接收分享，修改视频录制功能，等功能。用到技术如下：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用mvp构架项目"><span class="toc-text">使用mvp构架项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用RxJava2-Retrofit2-Okhttp3实现网络访问"><span class="toc-text">使用RxJava2+Retrofit2 +Okhttp3实现网络访问</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用轻量级缓存框架——ACache（ASimpleCache）"><span class="toc-text">使用轻量级缓存框架——ACache（ASimpleCache）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用SwipeToLoadLayout作上下拉刷新界面"><span class="toc-text">使用SwipeToLoadLayout作上下拉刷新界面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用java-8的lamdba特性创建单方法回调"><span class="toc-text">使用java 8的lamdba特性创建单方法回调</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#太哆嗦了，使用库就如下了…"><span class="toc-text">太哆嗦了，使用库就如下了…</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lamdba-简单总结-本来我也不会lamdba-语句的，但学Rxjava时，时不时就来一段lamdba语句，烦了，学RxJava学了一天，花了一小时去学lamdba，看上去好高大上的样子，虽然简洁，便不方便阅读。下面是我的简单总结，对我目前来说够用状态。"><span class="toc-text">lamdba 简单总结,本来我也不会lamdba 语句的，但学Rxjava时，时不时就来一段lamdba语句，烦了，学RxJava学了一天，花了一小时去学lamdba，看上去好高大上的样子，虽然简洁，便不方便阅读。下面是我的简单总结，对我目前来说够用状态。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在Android-studio-使用-lamdba-配置-配置下面两项就可以使用-lamdba语句了"><span class="toc-text">在Android studio 使用 lamdba 配置,配置下面两项就可以使用 lamdba语句了</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-在总项目的build-gradle-不是app的build-gradle-配置下"><span class="toc-text">1.在总项目的build.gradle(不是app的build.gradle)配置下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-在app的build-gradle配置下"><span class="toc-text">2.在app的build.gradle配置下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Rxjava2-没啥好总结，哈哈，不会Rxjava2-的同学们，android使用Rxjava-配置下面两个，教程传送门如下："><span class="toc-text">Rxjava2 没啥好总结，哈哈，不会Rxjava2 的同学们，android使用Rxjava 配置下面两个，教程传送门如下：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#楼主就看“给初学者的RxJava2-0教程”与“ReactiveX-RxJava文档中文版”学会Rxjava2的。"><span class="toc-text">楼主就看“给初学者的RxJava2.0教程”与“ReactiveX/RxJava文档中文版”学会Rxjava2的。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Retrofit2-总结，retrofit非常适合于restful-url格式的请求，更多使用注解的方式提供功能"><span class="toc-text">Retrofit2 总结，retrofit非常适合于restful url格式的请求，更多使用注解的方式提供功能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#与okhttp3搭配是绝配，因为retrofit的底层使用okhttp"><span class="toc-text">与okhttp3搭配是绝配，因为retrofit的底层使用okhttp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#支持与Rxjava配置使用"><span class="toc-text">支持与Rxjava配置使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在当前项目中问题点就是，服务器要cookie授权才可以获取数据，retrofit一直没有提交，不知道是我代码错误，还什么问题，目前解决方法，Okhttp3添加拦截器-在响应时，获取cookie持久化到本地-在请求时，添加cookie到请求头"><span class="toc-text">在当前项目中问题点就是，服务器要cookie授权才可以获取数据，retrofit一直没有提交，不知道是我代码错误，还什么问题，目前解决方法，Okhttp3添加拦截器,在响应时，获取cookie持久化到本地;在请求时，添加cookie到请求头</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Retrofit2-教程"><span class="toc-text">Retrofit2 教程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#你真的会用Retrofit2吗-Retrofit2完全教程"><span class="toc-text">你真的会用Retrofit2吗?Retrofit2完全教程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Retrofit2-完全解析-探索与okhttp之间的关系"><span class="toc-text">Retrofit2 完全解析 探索与okhttp之间的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Retrofit2-官方Github主页"><span class="toc-text">Retrofit2 官方Github主页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Retrofit项目官方文档"><span class="toc-text">Retrofit项目官方文档</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-上传图片压缩，当在wifi情况下单张图片最大256kb-在手机网络情况下最大128kb。"><span class="toc-text">1.上传图片压缩，当在wifi情况下单张图片最大256kb,在手机网络情况下最大128kb。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-使用自定义GlideModule-通过Glide加载视频文件，缓存原理和图片缓存一样。"><span class="toc-text">2.使用自定义GlideModule,通过Glide加载视频文件，缓存原理和图片缓存一样。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-学会使用mvp模式。"><span class="toc-text">3.学会使用mvp模式。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-加深Rxjava2与Retrofit2使用方式-。"><span class="toc-text">4.加深Rxjava2与Retrofit2使用方式 。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-半年没有写过go语言了，复习了go与beego框架的使用。"><span class="toc-text">5.半年没有写过go语言了，复习了go与beego框架的使用。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-以前没有接触过setMovementMethod，学到了使用的作用，添加一个动作（滑动，点击等等）改变View的状态，例如点击改变背景，功能和selector差不多，学习链接：http-blog-csdn-net-lincyang-article-details-7259322"><span class="toc-text">6.以前没有接触过setMovementMethod，学到了使用的作用，添加一个动作（滑动，点击等等）改变View的状态，例如点击改变背景，功能和selector差不多，学习链接：http://blog.csdn.net/lincyang/article/details/7259322</span></a></li></ol></li></ol></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-10 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">分类标签</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/nav1/#Android"
+                           title="Android">Android</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">个人链接</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://blog.csdn.net/u013217757">CSDNf博客</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/credityi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/credit03">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Cre博客 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://credit03.github.io/">Credit03</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://credit03.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://avatars3.githubusercontent.com/u/19606272">
+</body>
+
+</html>

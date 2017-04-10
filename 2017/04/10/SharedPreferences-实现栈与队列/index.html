@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="这是一个使用hexo for github page的博客">
+    <meta name="keyword" content="credit cre android go">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="Cre博客" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        SharedPreferences 实现栈与队列｜Cre博客
+        
+    </title>
+
+    <link rel="canonical" href="http://credit03.github.io/2017/04/10/SharedPreferences-实现栈与队列/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('null')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    Cre博客     
+                </span>
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">首页</a>
+                    </li>
+					
+                    
+                        
+							
+                        <li>
+                            <a href="/nav1/">标签</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/nav2/">时间轴</a>
+                        </li>
+							
+						
+                    
+                        
+							
+                        <li>
+                            <a href="/nav3/">关于</a>
+                        </li>
+							
+						
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img" src="/img/1.jpg">
+
+
+<style>
+     
+	 
+	 .post-container{
+	    padding-top:50px;
+        background-color: rgba(0, 0, 0, 0.09);
+	 }
+
+    
+    header.intro-header {
+        background-image: url('/img/1.jpg');
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>SharedPreferences 实现栈与队列</h1>
+                    
+                    <span class="meta">
+                         作者 Gou yi
+                        <span>
+                          日期 2017-04-10
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/nav1/#Android"
+                           title="Android">Android</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            SharedPreferences 实现栈与队列
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container"  >
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-10  col-sm-9 post-container">
+                <h2 id="SharedPreferences-实现栈与队列"><a href="#SharedPreferences-实现栈与队列" class="headerlink" title="SharedPreferences 实现栈与队列"></a>SharedPreferences 实现栈与队列</h2><h3 id="上个星期，脑袋灵感想想用SharedPreferences-实现android的app的任务栈形式，又想到Acivity-singleTop模式，"><a href="#上个星期，脑袋灵感想想用SharedPreferences-实现android的app的任务栈形式，又想到Acivity-singleTop模式，" class="headerlink" title="上个星期，脑袋灵感想想用SharedPreferences 实现android的app的任务栈形式，又想到Acivity singleTop模式，"></a>上个星期，脑袋灵感想想用SharedPreferences 实现android的app的任务栈形式，又想到Acivity singleTop模式，</h3><p>singleTop<br>当你要启动的Activity已经存在一个实例在当前任务栈的栈顶，就直接使用该实例，否则重新创建一个新的实例并放在栈顶。即使栈中已经存在该Activity实例，只要不在栈顶，都会创建实例。</p>
+<h4 id="实现思路参考Acivity-Task："><a href="#实现思路参考Acivity-Task：" class="headerlink" title="实现思路参考Acivity Task："></a>实现思路参考Acivity Task：</h4><p> 研究使用栈与队列组合实现，我使用游标仿单向循环链表方式实现。适合使用环境：例如搜索历史，浏览历史记录,缓存网络数据等等使用。</p>
+<h3 id="1-不存在栈中，则压入栈顶。"><a href="#1-不存在栈中，则压入栈顶。" class="headerlink" title="1.不存在栈中，则压入栈顶。"></a>1.不存在栈中，则压入栈顶。</h3><h3 id="2-若在栈顶，则更新数据"><a href="#2-若在栈顶，则更新数据" class="headerlink" title="2.若在栈顶，则更新数据"></a>2.若在栈顶，则更新数据</h3><h3 id="3-在在栈中，不在栈顶，则移到整个栈，把当前记录移到到栈顶。"><a href="#3-在在栈中，不在栈顶，则移到整个栈，把当前记录移到到栈顶。" class="headerlink" title="3.在在栈中，不在栈顶，则移到整个栈，把当前记录移到到栈顶。"></a>3.在在栈中，不在栈顶，则移到整个栈，把当前记录移到到栈顶。</h3><h2 id="可能存在bug，之前发现游标跳空或数据丢失，已经修复，目前测试没有发现什么问题。"><a href="#可能存在bug，之前发现游标跳空或数据丢失，已经修复，目前测试没有发现什么问题。" class="headerlink" title="可能存在bug，之前发现游标跳空或数据丢失，已经修复，目前测试没有发现什么问题。"></a>可能存在bug，之前发现游标跳空或数据丢失，已经修复，目前测试没有发现什么问题。</h2><h2 id="当然使用数据库也可以实现，利用时间截，使用order-by时间截来判断，比较与当前时间最小的就是栈顶，比较与当前时间最大的就是栈底，write数据时先查询（select）内容的唯一key，若存在-exist-则表明在栈中，则更新-update-内容与时间截。若不存在，先判断下限制记录是否存满了（比如只能存放5条记录），判断下数据库是否有5条记录，若不够5条则插入（insert）-若已经5条，则查询（select）比较与当前时间最大的row-执行数据更新（覆盖）。或者使用"><a href="#当然使用数据库也可以实现，利用时间截，使用order-by时间截来判断，比较与当前时间最小的就是栈顶，比较与当前时间最大的就是栈底，write数据时先查询（select）内容的唯一key，若存在-exist-则表明在栈中，则更新-update-内容与时间截。若不存在，先判断下限制记录是否存满了（比如只能存放5条记录），判断下数据库是否有5条记录，若不够5条则插入（insert）-若已经5条，则查询（select）比较与当前时间最大的row-执行数据更新（覆盖）。或者使用" class="headerlink" title="当然使用数据库也可以实现，利用时间截，使用order by时间截来判断，比较与当前时间最小的就是栈顶，比较与当前时间最大的就是栈底，write数据时先查询（select）内容的唯一key，若存在(exist)则表明在栈中，则更新(update)内容与时间截。若不存在，先判断下限制记录是否存满了（比如只能存放5条记录），判断下数据库是否有5条记录，若不够5条则插入（insert）;若已经5条，则查询（select）比较与当前时间最大的row,执行数据更新（覆盖）。或者使用"></a>当然使用数据库也可以实现，利用时间截，使用order by时间截来判断，比较与当前时间最小的就是栈顶，比较与当前时间最大的就是栈底，write数据时先查询（select）内容的唯一key，若存在(exist)则表明在栈中，则更新(update)内容与时间截。若不存在，先判断下限制记录是否存满了（比如只能存放5条记录），判断下数据库是否有5条记录，若不够5条则插入（insert）;若已经5条，则查询（select）比较与当前时间最大的row,执行数据更新（覆盖）。或者使用</h2><blockquote>
+<p><a href="http://blog.csdn.net/shakespeare001/article/details/51695358" target="_blank" rel="external">轻量级缓存框架——ACache（ASimpleCache）</a></p>
+</blockquote>
+<p><img src="http://img.blog.csdn.net/20170104101757727?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzIxNzc1Nw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">package cn.credit;</div><div class="line"></div><div class="line">import android.content.Context;</div><div class="line">import android.content.SharedPreferences;</div><div class="line">import android.text.TextUtils;</div><div class="line">import android.util.Log;</div><div class="line"></div><div class="line">import java.util.ArrayList;</div><div class="line">import java.util.HashMap;</div><div class="line">import java.util.List;</div><div class="line">import java.util.Map;</div><div class="line"></div><div class="line">import cn.dooer.andr.util.NetUtil;</div><div class="line"></div><div class="line">/**</div><div class="line"> * Created by Credit on 2017/1/3.</div><div class="line"> */</div><div class="line"></div><div class="line">public class SearchHistoryDao &#123;</div><div class="line">    private static String TAG = &quot;SearchHistoryDao&quot;;</div><div class="line">    /**</div><div class="line">     * 离线保存文件名</div><div class="line">     */</div><div class="line">    private static String config_name = &quot;search_savedata&quot;;</div><div class="line">    /**</div><div class="line">     * 默认只保存10条缓存数据</div><div class="line">     */</div><div class="line">    private static int RecordNum = 5;</div><div class="line">    public static String HISTORY_KEY = &quot;history_string&quot;;</div><div class="line">    public static String TYPE_KEY = &quot;history_type&quot;;</div><div class="line">    public static String INDEX_POINT = &quot;index_point&quot;;</div><div class="line"></div><div class="line">    private static String RECORD_NUM = &quot;RecordNum&quot;;</div><div class="line">    /**</div><div class="line">     * 空下标</div><div class="line">     */</div><div class="line">    private static int isEmptyIndex = -020;</div><div class="line">    /**</div><div class="line">     * 实例对象</div><div class="line">     */</div><div class="line">    private static SearchHistoryDao instance = null;</div><div class="line">    private static SharedPreferences sp = null;</div><div class="line">    private static Context mContext = null;</div><div class="line"></div><div class="line">    public static synchronized SearchHistoryDao getInstance(Context context) &#123;</div><div class="line">        if (instance == null) &#123;</div><div class="line">            instance = new SearchHistoryDao();</div><div class="line">            mContext = context.getApplicationContext();</div><div class="line">            sp = context.getSharedPreferences(config_name, context.MODE_PRIVATE);</div><div class="line"></div><div class="line">            /**</div><div class="line">             *  默认只保存10条缓存数据</div><div class="line">             */</div><div class="line">            RecordNum = sp.getInt(RECORD_NUM, RecordNum);</div><div class="line">        &#125;</div><div class="line">        return instance;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 获取名称最近N()条记录列表</div><div class="line">     *</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public List&lt;String&gt; readNameListHistory() &#123;</div><div class="line"></div><div class="line">        List&lt;String&gt; list = new ArrayList&lt;&gt;();</div><div class="line">        int point = sp.getInt(INDEX_POINT, 0);</div><div class="line">        String str;</div><div class="line">        for (int i = 0, n = point; i &lt; RecordNum; i++) &#123;</div><div class="line">            /**</div><div class="line">             * 游标还原最后的状态</div><div class="line">             */</div><div class="line">            n = n &gt; 0 ? (--n) : (--n + RecordNum) % RecordNum;</div><div class="line"></div><div class="line">            str = sp.getString(HISTORY_KEY + n, &quot;&quot;);</div><div class="line">            if (!TextUtils.isEmpty(str)) &#123;</div><div class="line">                list.add(str);</div><div class="line">            &#125;</div><div class="line"></div><div class="line"></div><div class="line">        &#125;</div><div class="line">        Log.e(TAG, &quot;readListHistory:获取最近N()条记录列表 &quot; + list.toString());</div><div class="line">        return list;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 获取详细-最近N()条记录列表</div><div class="line">     *</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public List&lt;Map&lt;String, String&gt;&gt; readDetailListHistory() &#123;</div><div class="line"></div><div class="line">        List&lt;Map&lt;String, String&gt;&gt; list = new ArrayList&lt;&gt;();</div><div class="line">        int point = sp.getInt(INDEX_POINT, 0);</div><div class="line">        String str;</div><div class="line">        for (int i = 0, n = point; i &lt; RecordNum; i++) &#123;</div><div class="line">            /**</div><div class="line">             * 游标还原最后的状态</div><div class="line">             */</div><div class="line">            n = n &gt; 0 ? (--n) : (--n + RecordNum) % RecordNum;</div><div class="line"></div><div class="line">            str = sp.getString(HISTORY_KEY + n, &quot;&quot;);</div><div class="line">            if (!TextUtils.isEmpty(str)) &#123;</div><div class="line">                int t = sp.getInt(TYPE_KEY + n, 1);</div><div class="line">                Map&lt;String, String&gt; m = new HashMap&lt;&gt;();</div><div class="line">                m.put(HISTORY_KEY, str);</div><div class="line">                m.put(INDEX_POINT, n + &quot;&quot;);</div><div class="line">                m.put(TYPE_KEY, t + &quot;&quot;);</div><div class="line">                list.add(m);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return list;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 根据KeyWord获取离线保存Type</div><div class="line">     */</div><div class="line">    public int readHistoryTypeByKeyWord(String str) &#123;</div><div class="line"></div><div class="line">        int mallIndex = getIndex(str);</div><div class="line">        if (mallIndex != isEmptyIndex) &#123;</div><div class="line">            return sp.getInt(TYPE_KEY + mallIndex, 1);</div><div class="line">        &#125;</div><div class="line">        return 1;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 根据index获取离线保存Type</div><div class="line">     */</div><div class="line">    public int readHistoryTypeByindex(int index) &#123;</div><div class="line"></div><div class="line">        return sp.getInt(TYPE_KEY + index, 1);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    /**</div><div class="line">     * 更新一条记录</div><div class="line">     * 简单的虚拟栈形式压入，最新的页面数据压入栈顶，使用游标方式实现(单向循环链表)</div><div class="line">     *</div><div class="line">     * @param str</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public boolean writeHistory(String str, int type) &#123;</div><div class="line">        int networkState = NetUtil.getNetworkState(mContext);</div><div class="line">        Log.e(TAG, &quot;writeHistory:更新一条记录 &quot; + networkState + &quot;  str&quot; + str);</div><div class="line">        /**</div><div class="line">         *判断是否是网络获取的数据，不必更新来自离线的数据</div><div class="line">         */</div><div class="line">        if (networkState != NetUtil.NETWORN_NONE) &#123;</div><div class="line">            /**</div><div class="line">             获取最新状态游标</div><div class="line">             */</div><div class="line">            int point = sp.getInt(INDEX_POINT, 0);</div><div class="line">            SharedPreferences.Editor editor = sp.edit();</div><div class="line">            /**</div><div class="line">             * 判断当前页面数据在栈中位置</div><div class="line">             */</div><div class="line">            int index = getIndex(str);</div><div class="line">            /**</div><div class="line">             * 判断当前页面数据，是否存在在栈中了</div><div class="line">             */</div><div class="line">            if (index != isEmptyIndex) &#123;</div><div class="line">                /**</div><div class="line">                 * 不在栈顶？弹出位置移动整个栈位置，压入栈顶</div><div class="line">                 *</div><div class="line">                 * 最后栈顶==point - 1；</div><div class="line">                 * 若不是空下标，则表明数据在游标中，而point==0时，则表明了游标完成了循环回到起始点，最后栈顶下标是 RecordNum-1；</div><div class="line">                 */</div><div class="line"></div><div class="line">                /**</div><div class="line">                 * 栈底</div><div class="line">                 */</div><div class="line">                int l = ((point + 1) + RecordNum) % RecordNum;</div><div class="line"></div><div class="line">                Log.d(TAG, &quot;writeHistory:  index:&quot; + index + &quot; point:&quot; + point + &quot; lastIndex:&quot;</div><div class="line">                        + ((point - 1) + RecordNum) % RecordNum + &quot; last Task:&quot; + l);</div><div class="line">                if (point &gt; 0 &amp;&amp; point - 1 != index) &#123;</div><div class="line"></div><div class="line">                    int n = index;</div><div class="line">                    editor.putString(HISTORY_KEY + index, &quot;&quot;);</div><div class="line">                    editor.putInt(TYPE_KEY + index, 1);</div><div class="line">                    int len = ((index - point) + RecordNum) % RecordNum;</div><div class="line">                    for (int i = 0; i &lt;= len; i++) &#123;</div><div class="line">                        editor.putString(HISTORY_KEY + n, sp.getString(HISTORY_KEY + ((n - 1) + RecordNum) % RecordNum, &quot;&quot;));</div><div class="line">                        editor.putInt(TYPE_KEY + n, sp.getInt(TYPE_KEY + ((n - 1) + RecordNum) % RecordNum, 1));</div><div class="line">                        n = n &gt; 0 ? (--n) : (--n + RecordNum) % RecordNum;</div><div class="line">                    &#125;</div><div class="line">                    if ((n != point - 1 &amp;&amp; n != 0) || l == n) &#123;</div><div class="line">                        editor.putString(HISTORY_KEY + n, &quot;&quot;);</div><div class="line">                        editor.putInt(TYPE_KEY + n, 1);</div><div class="line">                    &#125;</div><div class="line"></div><div class="line"></div><div class="line">                    Log.e(TAG, &quot;writeHistory: 不在栈顶？弹出位置移动整个栈位置，压入栈顶&quot; + str);</div><div class="line">                &#125; else &#123;</div><div class="line"></div><div class="line">                    if ((point + RecordNum) % RecordNum == index) &#123;</div><div class="line">                        editor.putInt(INDEX_POINT, (point + 1) % RecordNum);</div><div class="line">                    &#125;</div><div class="line"></div><div class="line">                    if ((point + RecordNum) % RecordNum == 0 &amp;&amp; point != index) &#123;</div><div class="line">                        int n = index;</div><div class="line">                        editor.putString(HISTORY_KEY + index, &quot;&quot;);</div><div class="line">                        editor.putInt(TYPE_KEY + index, 1);</div><div class="line">                        //// 前移</div><div class="line">                        int len = ((index - point) + RecordNum) % RecordNum;</div><div class="line">                        Log.e(TAG, &quot;writeHistory: 在栈顶，(point + RecordNum) % RecordNum == 0  前移&quot; + str);</div><div class="line">                        for (int i = 0; i &lt; len; i++) &#123;</div><div class="line">                            editor.putString(HISTORY_KEY + n, sp.getString(HISTORY_KEY + (n - 1), &quot;&quot;));</div><div class="line">                            editor.putInt(TYPE_KEY + n, sp.getInt(TYPE_KEY + (n - 1), -1));</div><div class="line">                            n = n &gt; 0 ? (--n) : (--n + RecordNum) % RecordNum;</div><div class="line">                        &#125;</div><div class="line">                    &#125; else &#123;</div><div class="line">                        /**</div><div class="line">                         * 在栈顶，更新数据就行</div><div class="line">                         * 进入条件</div><div class="line">                         * 1，point=0时,则index=RecordNum-1;</div><div class="line">                         * 2.point&gt;0时,则index=point-1;</div><div class="line">                         */</div><div class="line">                        Log.e(TAG, &quot;writeHistory: 在栈顶，更新数据就行&quot; + str);</div><div class="line">                        editor.putInt(TYPE_KEY + index, type);</div><div class="line">                        editor.commit();</div><div class="line">                        return true;</div><div class="line">                    &#125;</div><div class="line"></div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            Log.e(TAG, &quot;writeHistory: 压入栈顶&quot; + str);</div><div class="line">            /**</div><div class="line">             * 压入栈顶</div><div class="line">             */</div><div class="line">            editor.putString(HISTORY_KEY + point, str);</div><div class="line">            editor.putInt(TYPE_KEY + point, type);</div><div class="line">            /**</div><div class="line">             * 移动游标</div><div class="line">             */</div><div class="line"></div><div class="line">            editor.putInt(INDEX_POINT, (point + 1) % RecordNum);</div><div class="line">            editor.commit();</div><div class="line">            return true;</div><div class="line">        &#125;</div><div class="line">        Log.e(TAG, &quot;writeHistory: 网络不能使用&quot;);</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private int getIndex(String ID) &#123;</div><div class="line">        int point = sp.getInt(INDEX_POINT, 0);</div><div class="line">        String Did = &quot;&quot;;</div><div class="line">        /**</div><div class="line">         * 判断ID是否存在了</div><div class="line">         */</div><div class="line">        for (int i = 0, n = point; i &lt; RecordNum; i++) &#123;</div><div class="line">            /**</div><div class="line">             * 游标还原最后的状态</div><div class="line">             */</div><div class="line">            n = n &gt; 0 ? (--n) : (--n + RecordNum) % RecordNum;</div><div class="line">            Did = sp.getString(HISTORY_KEY + n, &quot;&quot;);</div><div class="line">            if (!TextUtils.isEmpty(Did) &amp;&amp; Did.equals(ID)) &#123;</div><div class="line">                return n;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return isEmptyIndex;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 设置缓存条数</div><div class="line">     *</div><div class="line">     * @param num</div><div class="line">     */</div><div class="line">    public void setRecordNum(int num) &#123;</div><div class="line">        sp.edit().putInt(RECORD_NUM, num).commit();</div><div class="line">        RecordNum = num;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 获取缓存条数</div><div class="line">     *</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public int getRecordNum() &#123;</div><div class="line">        return sp.getInt(RECORD_NUM, RecordNum);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 清除单条记录</div><div class="line">     *</div><div class="line">     * @param STR</div><div class="line">     * @return</div><div class="line">     */</div><div class="line">    public int clearHistoryByKeyWord(String STR) &#123;</div><div class="line"></div><div class="line">        int index = getIndex(STR);</div><div class="line">        if (index != isEmptyIndex) &#123;</div><div class="line">            SharedPreferences.Editor editor = sp.edit();</div><div class="line">            editor.putString(HISTORY_KEY + index, &quot;&quot;);</div><div class="line">            editor.putInt(TYPE_KEY + index, 1);</div><div class="line">            editor.commit();</div><div class="line">        &#125;</div><div class="line">        return index;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 清除全部记录</div><div class="line">     */</div><div class="line"></div><div class="line">    public void clearHistory() &#123;</div><div class="line">        // int point = sp.getInt(INDEX_POINT, 0);</div><div class="line">/*</div><div class="line">        for (int i = 0, n = point; i &lt; RecordNum; i++) &#123;</div><div class="line">            n = n &gt; 0 ? (--n) : (--n + RecordNum) % RecordNum;</div><div class="line">            editor.putString(HISTORY_KEY + n, &quot;&quot;);</div><div class="line">            editor.putInt(TYPE_KEY + n, 1);</div><div class="line">        &#125;</div><div class="line">        editor.putInt(INDEX_POINT, 0);*/</div><div class="line">        SharedPreferences.Editor editor = sp.edit();</div><div class="line">        editor.clear();</div><div class="line">        editor.commit();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+                <hr>
+				
+				
+				
+				
+				<!-- 云跟贴完整模块代码(Web单独版） -->
+				
+				
+				
+					 <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+						<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+						<script>
+						var cloudTieConfig = {
+						  url: document.location.href, 
+						  sourceId: "",
+						  productKey: "config['gentie_username']",
+						  target: "cloud-tie-wrapper"
+						};
+						var yunManualLoad = true;
+						Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+						</script>
+				
+
+				
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/04/10/ReclyerView双联动，仿饿了吗店铺详情页/" data-toggle="tooltip" data-placement="top"
+                           title="ReclyerView双联动，仿饿了吗店铺详情页">&larr; 上一章</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+
+                
+
+            </div>
+
+            <div class="hidden-xs col-sm-2 toc-col" >
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SharedPreferences-实现栈与队列"><span class="toc-text">SharedPreferences 实现栈与队列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#上个星期，脑袋灵感想想用SharedPreferences-实现android的app的任务栈形式，又想到Acivity-singleTop模式，"><span class="toc-text">上个星期，脑袋灵感想想用SharedPreferences 实现android的app的任务栈形式，又想到Acivity singleTop模式，</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实现思路参考Acivity-Task："><span class="toc-text">实现思路参考Acivity Task：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-不存在栈中，则压入栈顶。"><span class="toc-text">1.不存在栈中，则压入栈顶。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-若在栈顶，则更新数据"><span class="toc-text">2.若在栈顶，则更新数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-在在栈中，不在栈顶，则移到整个栈，把当前记录移到到栈顶。"><span class="toc-text">3.在在栈中，不在栈顶，则移到整个栈，把当前记录移到到栈顶。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可能存在bug，之前发现游标跳空或数据丢失，已经修复，目前测试没有发现什么问题。"><span class="toc-text">可能存在bug，之前发现游标跳空或数据丢失，已经修复，目前测试没有发现什么问题。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#当然使用数据库也可以实现，利用时间截，使用order-by时间截来判断，比较与当前时间最小的就是栈顶，比较与当前时间最大的就是栈底，write数据时先查询（select）内容的唯一key，若存在-exist-则表明在栈中，则更新-update-内容与时间截。若不存在，先判断下限制记录是否存满了（比如只能存放5条记录），判断下数据库是否有5条记录，若不够5条则插入（insert）-若已经5条，则查询（select）比较与当前时间最大的row-执行数据更新（覆盖）。或者使用"><span class="toc-text">当然使用数据库也可以实现，利用时间截，使用order by时间截来判断，比较与当前时间最小的就是栈顶，比较与当前时间最大的就是栈底，write数据时先查询（select）内容的唯一key，若存在(exist)则表明在栈中，则更新(update)内容与时间截。若不存在，先判断下限制记录是否存满了（比如只能存放5条记录），判断下数据库是否有5条记录，若不够5条则插入（insert）;若已经5条，则查询（select）比较与当前时间最大的row,执行数据更新（覆盖）。或者使用</span></a></li></ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-10 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">分类标签</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/nav1/#Android"
+                           title="Android">Android</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <div style="margin-top: 20px;">
+                    <h5 class="text-center">个人链接</h5>
+                    <ul class="list-inline text-center">
+                        
+                        <li><a href="http://blog.csdn.net/u013217757">CSDNf博客</a></li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/credityi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/credit03">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; Cre博客 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    <br>
+                    Theme by <a href="https://credit03.github.io/">Credit03</a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://credit03.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','null','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="https://avatars3.githubusercontent.com/u/19606272">
+</body>
+
+</html>
