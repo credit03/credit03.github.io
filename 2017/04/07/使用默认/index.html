@@ -200,7 +200,7 @@
                 <blockquote>
 <p>Front-matter 是文件最上方以 — 分隔的区域，用于指定个别文件的变量</p>
 </blockquote>
-<h2 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h2><p>layout: 指定layout打开<br>title:  标题<br>date:   时间<br>author: 作者<br>subtitle: 短语<br>header-img: 图片相对路径，注意要设置  img CDN path;不设置程序默认是使用 post-default-img<br>cdn:header-off/header-on  默认是header-on, 是否使用header-img; 当header-img=””时，header-off使用post-default-img；若不设置默认是灰色背景</p>
+<h2 id="使用教程"><a href="#使用教程" class="headerlink" title="使用教程"></a>使用教程</h2><p>layout: 指定layout打开<br>title:  标题<br>date:   时间<br>author: 作者<br>subtitle: 短语<br>cdn:header-off/header-on  默认是header-on,是使用cdn的图片，建议header-off,若header-on 而header-img不可读时，则是灰色背景<br>header-img: 图片相对路径,若cdn 设置header-off，使用本地图片（/img/1.jpg），header-on ,使用cdn的图片；</p>
 <h4 id="例如我设置：cdn-url-http-localhost-4000-你的CDN地址"><a href="#例如我设置：cdn-url-http-localhost-4000-你的CDN地址" class="headerlink" title="例如我设置：cdn-url: http://localhost:4000  # 你的CDN地址"></a>例如我设置：cdn-url: <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a>  # 你的CDN地址</h4><p>tags: 文章的标签</p>
 <h2 id="默认方式"><a href="#默认方式" class="headerlink" title="默认方式"></a>默认方式</h2><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">---</div><div class="line">title: 使用教程</div><div class="line">date: 2017-04-07 18:05:09</div><div class="line">tags: Go</div><div class="line">cdn: header-off # header-off时，使用默认：post-default-img</div><div class="line">---</div><div class="line">``` </div><div class="line"></div><div class="line">## 设置方式1</div></pre></td></tr></table></figure>
 <p>title: 设置方式1<br>date: 2017-04-07 18:05:09<br>tags: Android<br>header-img: /img/3.jpg<br>cdn: header-on<br>```</p>
