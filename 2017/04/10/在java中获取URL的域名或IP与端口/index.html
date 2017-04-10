@@ -196,7 +196,7 @@
     <div class="container"  >
         <div class="row">
             <!-- Post Container -->
-            <div class="col-lg-10  col-sm-9 post-container">
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
                 <h1 id="在java中获取URL的域名或IP与端口"><a href="#在java中获取URL的域名或IP与端口" class="headerlink" title="在java中获取URL的域名或IP与端口"></a>在java中获取URL的域名或IP与端口</h1><p>获取IP与域名方法一，使用正则表达式</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">public static String getIP(String url) &#123;</div><div class="line">        //使用正则表达式过滤，</div><div class="line">		String re = &quot;((http|ftp|https)://)(([a-zA-Z0-9._-]+)|([0-9]&#123;1,3&#125;.[0-9]&#123;1,3&#125;.[0-9]&#123;1,3&#125;.[0-9]&#123;1,3&#125;))(([a-zA-Z]&#123;2,6&#125;)|(:[0-9]&#123;1,4&#125;)?)&quot;;</div><div class="line">		String str = &quot;&quot;;</div><div class="line">		// 编译正则表达式</div><div class="line">		Pattern pattern = Pattern.compile(re);</div><div class="line">		// 忽略大小写的写法</div><div class="line">		// Pattern pat = Pattern.compile(regEx, Pattern.CASE_INSENSITIVE);</div><div class="line">		Matcher matcher = pattern.matcher(url);</div><div class="line">		//若url==http://127.0.0.1:9040或www.baidu.com的，正则表达式表示匹配</div><div class="line">		if (matcher.matches()) &#123;</div><div class="line">			str = url;</div><div class="line">		&#125; else &#123;</div><div class="line">			String[] split2 = url.split(re);</div><div class="line">			if (split2.length &gt; 1) &#123;</div><div class="line">				String substring = url.substring(0, url.length() - split2[1].length());</div><div class="line">				str = substring;</div><div class="line">			&#125; else &#123;</div><div class="line">				str = split2[0];</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		return str;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
 <blockquote>
@@ -254,7 +254,7 @@
 
             </div>
 
-            <div class="hidden-xs col-sm-2 toc-col" >
+             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
                     <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#在java中获取URL的域名或IP与端口"><span class="toc-text">在java中获取URL的域名或IP与端口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#结果"><span class="toc-text">结果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol></li></ol></li></ol>
                 </div>
@@ -264,8 +264,8 @@
         <div class="row">
             <!-- Sidebar Container -->
 
-            <div class="
-                col-lg-10 col-lg-offset-1
+          <div class="
+                col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 sidebar-container">
 
